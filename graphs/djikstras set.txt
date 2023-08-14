@@ -1,0 +1,34 @@
+class Solution
+{
+	public:
+	//Function to find the shortest distance of all the vertices
+    //from the source vertex S.
+    vector <int> dijkstra(int V, vector<vector<int>> adj[], int S)
+    {
+        // Code here
+       set<pair<int,int>> s;
+        vector<int> dist(V,INT_MAX);
+        dist.at(S)=0;
+        s.insert({0,S});
+        while(!s.empty())
+        { auto it=*(s.begin());
+            int dis=it.first;
+            int node=it.second;
+            s.erase(it);
+            for(auto it:adj[node])
+            {
+               int edgeWeight=it[1];
+               int adjNode=it[0];
+               if(dis+edgeWeight<dist[adjNode])
+               {   if(dist[adjNode]!=INT_MAX)
+               {
+                   s.erase({dist[adjNode],adjNode});
+               }
+                   dist[adjNode]=dis+edgeWeight;
+                   s.insert({dist[adjNode],adjNode});
+               }
+            }
+        }
+        return dist;
+    }
+};
