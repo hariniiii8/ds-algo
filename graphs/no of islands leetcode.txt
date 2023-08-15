@@ -1,0 +1,67 @@
+// direct nodes are not given , the nos 0 is island and 1 is land
+//they are represented in a matrix
+//we need to consider each entry in the matrix as a node
+//so in bfs we push nodes into the queue, here push the matrix indexes as 
+//they are acting as nodes
+// here adj matrix is not given , but we can find the neighbours by 
+//looking at all the 8 directions
+//for vis array, we can make a 2d array and mark 1 for whichever index is //pushed  into the queue
+//while pushing mark in the array
+//while popping look for the neighbours, ll the 8 directions
+//wherever it has neighbours , push it into queue
+
+
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+        int count = 0;
+        vector<vector<int>> vis(m, vector<int>(n, 0));
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (vis[i][j] != 1 && grid[i][j] == '1') {
+                    count++;
+                    bfs(i, j, vis, grid);
+                }
+            }
+        }
+        return count;
+    }
+
+private:
+    void bfs(int i, int j, vector<vector<int>>& vis, vector<vector<char>>& grid) {
+        queue<pair<int, int>> q;
+        q.push({i, j});
+        vis[i][j] = 1;
+        int m = grid.size();
+        int n = grid[0].size();
+        
+        while (!q.empty()) {
+            int row = q.front().first;
+            int col = q.front().second;
+            q.pop();
+            
+            for (int x = -1; x <= 1; x++) {
+                for (int y = -1; y <= 1; y++) {
+                    if ((x == 0 && y != 0) || (x != 0 && y == 0)) {
+                        int nrow = row + x;
+                        int ncol = col + y;
+
+                        if (nrow >= 0 && nrow < m && ncol >= 0 && ncol < n && grid[nrow][ncol] == '1' && vis[nrow][ncol] != 1) {
+                            vis[nrow][ncol] = 1;
+                            q.push({nrow, ncol});
+                        }
+                    }
+                }
+            }
+        }
+    }
+};
+
+
+// if ((x == 0 && y != 0) || (x != 0 && y == 0))
+//this condition means that we r not going to the diagonal elements
+// only to horizontal and vertically adjacent nodes, 
+//which is the leetcode problem statement
