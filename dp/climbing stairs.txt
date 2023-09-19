@@ -1,0 +1,3 @@
+how to  identify its a dp problem:
+count the no of ways: recursion question
+other recursion patterns:max/min (optimization),count no of ways or find best way.

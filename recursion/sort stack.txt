@@ -1,0 +1,35 @@
+class GfG{
+	public Stack<Integer> sort(Stack<Integer> s)
+	{
+	   if (s.size() == 1) {
+      return s;
+    }
+    Integer topEl = s.pop();
+    // Hypotheses
+    sort(s);
+
+    // Induction
+    return insertElementAt(s, topEl);
+	}
+	
+	 Stack<Integer> insertElementAt(Stack<Integer> st, Integer el) {
+    // Base condition
+    if (st.size() == 0 || st.peek() <= el) {
+      st.push(el);
+      return st;
+    }
+
+    Integer topEl = st.pop();
+    // Hypotheses
+    insertElementAt(st, el);
+
+    // Induction
+    st.push(topEl);
+    return st;
+  }
+}
+
+
+in case of array , how to store and pop the last element
+int temp=v[v.size()-1];
+v.pop_back();

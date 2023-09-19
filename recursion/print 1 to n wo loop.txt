@@ -1,0 +1,26 @@
+class Solution{
+    public:
+    //Complete this function
+    void printNos(int N)
+    {
+        //Your code here
+        if(N<=0)
+        {
+            return ;
+        }
+        printNos(N-1);
+        cout<<N<<" ";
+    }
+};
+
+
+vector<int> printNos(int x) {
+    // Write Your Code Here
+    if(x<=0)
+    {
+        return vector<int>();
+    }
+    vector<int> res=printNos(x-1);
+    res.push_back(x);
+    return res;
+}

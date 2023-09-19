@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+      vector<string> result;
+        string op;
+        generate(n, n, op, result);
+        return result;  
+    }
+     void generate(int open, int close, string& op, vector<string>& result) {
+        if (open == 0 && close == 0) {
+            result.push_back(op);
+            return;
+        }
+
+        if (open > 0) {
+            string op1 = op + "(";
+            generate(open - 1, close, op1, result);
+        }
+
+        if (close > open) {
+            string op2 = op + ")";
+            generate(open, close - 1, op2, result);
+        }
+    }
+};

@@ -1,0 +1,28 @@
+  public:
+    long long sumOfSeries(long long N) {
+        // code here
+        if(N<=0)
+        {
+            return 0;
+        }
+        return pow(N,3)+sumOfSeries(N-1);
+    }
+};
+
+not optimal
+
+
+class Solution {
+  public:
+    long long sumOfSeries(long long N) {
+        // code here
+       if (N <= 0) {
+            return 0;
+        }
+        long long sum = (N * (N + 1) / 2);
+        return sum * sum;
+    }
+};
+
+
+no recursion is optimal

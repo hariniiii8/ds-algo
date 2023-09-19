@@ -1,0 +1,9 @@
+vector<string> printNTimes(int n) {
+	// Write your code here.
+	if(n<=0)
+	{
+		return vector<string>() ;
+	}
+	cout<<"Coding Ninjas"<<" ";
+	return printNTimes(n-1);
+}

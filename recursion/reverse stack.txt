@@ -1,0 +1,33 @@
+class Solution{
+public:
+    void Reverse(stack<int> &St){
+        if(St.size()==1)
+        {
+            return ;
+        }
+        int temp=St.top();
+        St.pop();
+        Reverse(St);
+        insert(St,temp);
+        return;
+        
+    }
+    
+    void insert(stack<int> &st,int temp)
+    {
+        if(st.empty())
+        {
+            st.push(temp);
+            return;
+        }
+        int tops=st.top();
+        st.pop();
+        insert(st,temp);
+        st.push(tops);
+        return;
+    }
+    
+};
+
+
+//forgot & in function TT

@@ -1,0 +1,74 @@
+void function:
+
+
+class Solution{
+public:
+    void generateBinaryStrings(int num){
+        //Write your code
+        //   vector<string> result;
+        generateBinaryStrings(num, "");
+        return ;
+        
+    }
+    private:
+    static void generateBinaryStrings(int n, string op) {
+        if (op.length() == n) {
+          cout<<op<<" ";
+            return;
+        }
+
+        // Add "0" without constraint
+        generateBinaryStrings(n, op + "0");
+
+        // Add "1" only if the previous character is not "1"
+        if (op.empty() || op[op.length() - 1] != '1') {
+            generateBinaryStrings(n, op + "1");
+        }
+    }
+};
+
+
+
+vector<int> returning function:
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    static vector<string> generateBinaryStrings(int n) {
+        vector<string> result;
+        generateBinaryStrings(n, "", result);
+        return result;
+    }
+
+private:
+    static void generateBinaryStrings(int n, string op, vector<string>& result) {
+        if (op.length() == n) {
+            result.push_back(op);
+            return;
+        }
+
+        // Add "0" without constraint
+        generateBinaryStrings(n, op + "0", result);
+
+        // Add "1" only if the previous character is not "1"
+        if (op.empty() || op[op.length() - 1] != '1') {   //*
+            generateBinaryStrings(n, op + "1", result);
+        }
+    }
+};
+
+int main() {
+    int n = 3; // Change n to the desired value
+    vector<string> result = Solution::generateBinaryStrings(n);
+
+    for (const string& s : result) {
+        cout << s << endl;
+    }
+
+    return 0;
+}
+
+
+//* there we cant write "1", only '1'
