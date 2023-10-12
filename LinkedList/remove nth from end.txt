@@ -1,0 +1,69 @@
+lass Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* cur = head;
+        int count = 0;
+        
+        // Count the total number of nodes in the list.
+        while (cur != NULL) {
+            cur = cur->next;
+            count++;
+        }
+        
+        int end = count - n;
+        
+        if (end == 0) {
+            // If we need to remove the head node.
+            ListNode* newHead = head->next;
+            delete head;
+            return newHead;
+        }
+        
+        cur = head;
+        for (int i = 0; i < end - 1; i++) {
+            cur = cur->next;
+        }
+        
+        ListNode* t = cur->next;
+        cur->next = cur->next->next;
+        delete t;
+        
+        return head;
+    }
+};
+
+
+optimal:
+class Solution {
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) {
+        ListNode* dummy = new ListNode(0);
+        dummy->next = head;
+        ListNode* slow = dummy;
+        ListNode* fast = dummy;
+
+        // Move fast n nodes ahead.
+        for (int i = 0; i < n; i++) {
+            if (fast->next != nullptr) {
+                fast = fast->next;
+            } else {
+                return head;  // Invalid input: n is greater than the number of nodes.
+            }
+        }
+
+        // Move fast to the end, maintaining the gap of n nodes.
+        while (fast->next != nullptr) {
+            slow = slow->next;
+            fast = fast->next;
+        }
+
+        // Remove the Nth node by updating the next pointer of the slow node.
+        ListNode* toRemove = slow->next;
+        slow->next = slow->next->next;
+        delete toRemove;
+
+        return dummy->next;
+    }
+};
+
+

@@ -1,0 +1,66 @@
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        int n=intervals.size();
+        vector<vector<int>> ans;
+        sort(intervals.begin(),intervals.end());
+        int start;
+        int end;
+        for(int i=0;i<n;i++)
+        {
+            start=intervals[i][0];
+            end=intervals[i][1];
+            if(!ans.empty() && ans.back()[1]>=end)
+            {
+                continue;
+            }
+
+            for(int j=i+1;j<n;j++)
+            {
+                if(intervals[j][0]<=end)
+                {
+                    end=max(end,intervals[j][1]);
+                }
+                else
+                {
+                    break;//since its in sorted order
+                    //if one interval doesnt fit , none after it will also fit
+                }
+            }
+            ans.push_back({start,end});
+            
+
+        }
+        return ans;
+    }
+};
+
+//sort sorts acc to first index and if those r equal then it compares 2nd index
+
+
+optimal:
+
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        int n=intervals.size();
+        sort(intervals.begin(),intervals.end());
+        vector<vector<int>> ans;
+        for(int i=0;i<n;i++)
+        {
+            if(ans.size()==0|| ans.back()[1]<intervals[i][0])
+            {
+                ans.push_back(intervals[i]);
+            }
+            else
+            {
+                ans.back()[1]=max(ans.back()[1],intervals[i][1]);
+            }
+
+        }
+        return ans;
+        
+    }
+};
+
+//dont forget to sort

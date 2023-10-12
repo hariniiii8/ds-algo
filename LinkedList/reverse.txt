@@ -1,0 +1,42 @@
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* cur=head;
+        ListNode* dummy=NULL;
+        ListNode* next;
+        while(cur!=NULL)
+        {
+            next=cur->next;
+            cur->next=dummy;
+            dummy=cur;
+            cur=next;
+
+        }
+        return dummy;
+        
+    }
+};
+
+
+recursive:
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* cur=head;
+        ListNode* dummy=NULL;
+        
+       return reverse(dummy,cur);
+        
+    }
+    ListNode* reverse(ListNode* dummy,ListNode* cur)
+    {
+        if(cur==NULL)
+        {
+            return dummy;
+        }
+        ListNode* next=cur->next;
+        cur->next=dummy;
+        return reverse(cur,next);
+    }
+    
+};

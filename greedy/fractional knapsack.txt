@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool static comp(Item a, Item b) {
+        double c = (double)a.value / (double)a.weight;
+        double d = (double)b.value / (double)b.weight;
+        return c > d;
+    }
+
+    // Function to get the maximum total value in the knapsack.
+    double fractionalKnapsack(int W, Item arr[], int n) {
+        // Your code here
+        sort(arr, arr + n, comp);
+        int curWeight = 0;
+        double profit = 0.0;  // Use double for profit and rem.
+
+        for (int i = 0; i < n; i++) {
+            if (curWeight + arr[i].weight <= W) {
+                curWeight += arr[i].weight;
+                profit += arr[i].value;
+            } else {
+                int rem = W - curWeight;  // Use int for remainingWeight.
+                profit += ((double)arr[i].value / (double)arr[i].weight) * (double)rem;
+                break;
+            }
+        }
+        return profit;
+    }
+};

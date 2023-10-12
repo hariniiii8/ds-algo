@@ -1,0 +1,20 @@
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        
+        int n=nums.size();
+        k=k%n;
+        creverse(0,n-1,nums);
+        creverse(0,k-1,nums);
+        creverse(k,n-1,nums);
+    }
+    void creverse(int start, int end,vector<int> &nums)
+    {
+        while(start<end)
+        {
+            swap(nums[start],nums[end]);
+            start++;
+            end--;
+        }
+    }
+};

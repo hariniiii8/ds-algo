@@ -4,8 +4,7 @@ void function:
 class Solution{
 public:
     void generateBinaryStrings(int num){
-        //Write your code
-        //   vector<string> result;
+        
         generateBinaryStrings(num, "");
         return ;
         

@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int reversePairs(vector<int>& nums) {
+        int cnt = 0;
+        int n = nums.size();
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if ((long long)nums[i] > 2LL * nums[j]) {
+                    cnt++;
+                }
+            }
+        }
+        return cnt;
+    }
+};
+
+
+use long long as 2*nums i doesnt fit within int
+The 2LL is used to represent the number "2" as a long long literal. It explicitly specifies that the number "2" should be treated as a long long integer type. This is done to avoid any potential issues with integer promotion or overflows when performing the multiplication 2 * nums[j.
+(long long)nums[i] is casting nums[i] to a long long. This ensures that nums[i] is treated as a long long integer for the comparison.
+
+
+time limit is still exceeded\
+
+

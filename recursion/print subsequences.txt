@@ -1,0 +1,27 @@
+lass Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>> result;
+        vector<int> op;
+        mine(nums, 0, result, op);
+        return result;
+    }
+
+    void mine(vector<int>& nums, int index, vector<vector<int>>& result, vector<int>& op) {
+        if (index == nums.size()) {
+            result.push_back(op);
+            return;
+        }
+         vector<int> op1=op;
+
+        // Exclude the current element
+        mine(nums, index + 1, result, op1);
+
+        // Include the current element
+         vector<int> op2=op;
+        op2.push_back(nums[index]);
+        mine(nums, index + 1, result, op2);
+
+        
+    }
+};

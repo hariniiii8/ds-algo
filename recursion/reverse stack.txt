@@ -31,3 +31,4 @@ public:
 
 
 //forgot & in function TT
+//first do top and then pop

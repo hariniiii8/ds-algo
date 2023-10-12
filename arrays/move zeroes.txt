@@ -1,0 +1,99 @@
+inplace solution
+
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int k = 0;
+        int n = nums.size();
+        
+       
+        for (int i = 0; i < n; i++) {
+            if (nums[i] != 0) {
+                nums[k] = nums[i];
+                k++;
+            }
+        }
+        
+        
+        for (i=k; i< n; i++) {
+            nums[i] = 0;
+        }
+    }
+};
+
+brute:
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int k = 0;
+        int n = nums.size();
+        vector<int> ans(n);
+        
+       
+        for (int i = 0; i < n; i++) {
+            if (nums[i] != 0) {
+                ans[k] = nums[i];
+                k++;
+            }
+        }
+        
+        
+       while(k<n)
+       {
+           ans[k]=0;
+           k++;
+       }
+       for(int i=0;i<n;i++)
+
+       {
+           nums[i]=ans[i];
+       }
+    }
+};
+
+optimal:
+lass Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int i = 0;
+        int n = nums.size();
+        
+        // Move all non-zero elements to the front
+        for (int j = 0; j < n; j++) {
+            if (nums[j] != 0) {
+                swap(nums[i], nums[j]);
+                i++;
+            }
+        }
+    }
+};
+
+another optimal:
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int i=0;
+        int n=nums.size();
+      while(i<n)
+      {
+          if(nums[i]==0)
+          {
+              break;
+          }
+          else{
+              i++;
+          }
+      }
+        
+        for(int j=i+1;j<n;j++)
+        {
+            if(nums[j]!=0)
+            {
+                swap(nums[i],nums[j]);
+                i++;
+            }
+        }
+    }
+};
+
+i index is used to find the first zero element and j the first non zero index and we swap both

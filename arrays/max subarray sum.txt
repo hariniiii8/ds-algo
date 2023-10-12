@@ -1,0 +1,87 @@
+brute:
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int n=nums.size();
+        int sum;
+        int max=INT_MIN;
+        for(int i=0;i<n;i++)
+        {
+            for (int j=i;j<n;j++)
+            {
+                sum=0;
+                for(int k=i;k<=j;k++)
+                {
+                    sum+=nums[k];
+                    if(sum>max)
+                    {
+                        max=sum;
+
+                    }
+
+                }
+            }
+        }
+        return max;
+    }
+};
+
+always make a mistake in the j loop conditions 
+max i had initialized to 0 , but it should be to int max
+
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int n=nums.size();
+        int sum;
+        int max=INT_MIN;
+        for(int i=0;i<n;i++)
+        {
+            sum=0;
+            for (int j=i;j<n;j++)
+            {
+                sum+=nums[j];
+                if(sum>max)
+                {
+                    max=sum;
+                }
+               
+            }
+        }
+        return max;
+    }
+};
+
+
+time limit exceeded in both
+
+
+
+optimal:
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int sum=0;
+        int maxSum=INT_MIN;
+        for(int i=0;i<nums.size();i++)
+        {
+            sum+=nums[i];
+            maxSum=max(sum,maxSum);
+            if(sum<0)
+            {
+                sum=0;
+            }
+            
+            if(maxSum==INT_MIN)
+            {
+                int maxNeg=nums[0];
+                for(int i=1;i<nums.size();i++)
+                {
+                    maxNeg=max(maxNeg,nums[i]);
+                }
+                return maxNeg;
+            }
+        }
+        return maxSum;
+    }
+};

@@ -1,0 +1,79 @@
+using map
+
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+     map<int,int> mpp;
+     for(int i=0;i<nums.size();i++)
+     {
+         mpp[nums[i]]++;
+     }  
+     for(auto it:mpp)
+     {
+         if(it.second>nums.size()/2)
+         {
+             return it.first;
+         }
+     } 
+     return -1;
+    }
+};
+
+
+brute:
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int count;
+        int maxCount=0;
+        int temp;
+        for(int i=0;i<nums.size();i++)
+        {
+            count=0;
+            for(int j=0;j<nums.size();j++)
+            {
+              if(nums[i]==nums[j])
+              {
+                  count++;
+              }
+             
+            }
+             if(count>nums.size()/2)
+              {
+                  
+                  temp=nums[i];
+              }
+        }
+        return temp;
+    }
+};
+
+time limit exceeded
+
+optimal:
+
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int temp=nums[0];
+        int cnt=1;
+        for(int i=1;i<nums.size();i++)
+        {
+            if(nums[i]==temp)
+            {
+                cnt++;
+            }
+            else
+            {
+                
+                cnt--;
+                if(cnt==0)
+                {
+                    temp=nums[i];
+                    cnt++;
+                }
+            }
+        }
+        return temp;
+    }
+};

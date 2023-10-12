@@ -1,0 +1,49 @@
+brute:
+vector<int> rotateArray(vector<int>arr, int k) {
+    // Write your code here.
+    int n=arr.size();
+
+    vector<int> temp(n);
+    for(int i=0;i<k;i++)
+    {
+        temp[i]=arr[i];
+    }
+    for(int i=k;i<n;i++)
+    {
+        arr[i-k]=arr[i];
+    }
+   
+        for (int i = n - k; i < n; i++) {
+            arr[i] = temp[i - (n - k)];
+
+    }
+    return arr;
+}
+
+
+
+optimal:
+
+vector<int> rotateArray(vector<int> arr, int k);
+void creverse(int start, int end, vector<int> &arr);
+
+
+vector<int> rotateArray(vector<int>arr, int k) {
+    // Write your code here.
+    int n=arr.size();
+    k=k%n;    //dont forget imp
+    creverse(0,k-1,arr);
+    creverse(k,n-1,arr);
+    creverse(0,n-1,arr);
+    return arr;
+}
+void creverse(int start,int end,vector<int> &arr)
+{
+
+while(start<end)
+{
+    swap(arr[start],arr[end]);
+    start++;
+    end--;
+}
+}

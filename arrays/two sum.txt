@@ -1,0 +1,107 @@
+
+brute:
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> ans;
+        for(int i=0;i<nums.size();i++)
+        {
+            int rem=target-nums[i];
+            for(int j=i+1;j<nums.size();j++)
+            {
+                if(nums[j]==rem)
+                {
+                    ans.push_back(i);
+                    ans.push_back(j);
+                    return ans;
+                }
+
+            }
+        }
+        return {};
+    }
+};
+
+
+
+hashing:
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        map<int,int> mpp;
+        vector<int> ans;
+        for(int i=0;i<nums.size();i++)
+        {
+
+          int rem=target-nums[i];
+          if(mpp.find(rem)!=mpp.end())
+          {
+             ans.push_back(i);
+             ans.push_back(mpp[rem]);
+          }
+          mpp[nums[i]]=i;
+        }
+        
+        return ans;
+    }
+};
+
+In the worst case(which rarely happens), the unordered_map takes O(N) to find an element. In that case, the time complexity will be O(N2). If we use map instead of unordered_map, the time complexity will be O(N* logN) as the map data structure takes logN time to find an element.
+
+
+optimal:
+
+Time Complexity: O(N) + O(N*logN), where N = size of the array.
+
+string twoSum(int n, vector<int> &arr, int target) {
+    sort(arr.begin(), arr.end());
+    int left = 0, right = n - 1;
+    while (left < right) {
+        int sum = arr[left] + arr[right];
+        if (sum == target) {
+            return "YES";
+        }
+        else if (sum < target) left++;
+        else right--;
+    }
+    return "NO";
+}
+
+
+
+for the other variant :
+this method has sort , which changes the index while returning, so i take a vector of pair which stores the number and its index
+
+
+bool comp(pair<int, int>& a, pair<int, int>& b) {
+    return (a.first<b.first);
+}
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<pair<int, int>> numWithIndex;
+        for (int i = 0; i < nums.size(); ++i) {
+            numWithIndex.push_back({nums[i], i});
+        }
+
+        sort(numWithIndex.begin(), numWithIndex.end(), comp);
+
+        int left = 0;
+        int right = numWithIndex.size() - 1;
+
+        while (left < right) {
+            int sum = numWithIndex[left].first + numWithIndex[right].first;
+            if (sum == target) {
+                return {numWithIndex[left].second, numWithIndex[right].second};
+            } else if (sum < target) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+
+        return {}; // If no solution is found.
+    }
+};
+
