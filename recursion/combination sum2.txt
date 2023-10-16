@@ -1,0 +1,35 @@
+class Solution {
+public:
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+         vector<vector<int>> ans;
+    vector<int> ds;
+    set<vector<int>> st;
+    sort(candidates.begin(),candidates.end());
+    combinationSum(0, target, candidates, st, ds);
+    for(auto it=st.begin();it!=st.end();it++)
+    {
+        ans.push_back(*it);
+    }
+    return ans;
+    }
+    void combinationSum(int ind, int target, vector<int>& candidates, set<vector<int>> &st, vector<int>& ds) {
+    if (ind == candidates.size()) {
+        if (target == 0) {
+            
+           st.insert(ds);
+        }
+        return;
+    }
+    vector<int> ds1=ds;
+      combinationSum(ind + 1, target, candidates, st, ds1);
+      if(candidates[ind]<=target)
+   {
+       vector<int> ds2=ds;
+       ds2.push_back(candidates[ind]);
+         
+        combinationSum(ind+1, target - candidates[ind], candidates, st, ds2);
+        
+   }  
+}
+
+};

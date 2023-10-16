@@ -1,0 +1,6 @@
+dp is enhanced recursion
+if in a recursion question , 2 recursive calls r being made , then consider dp
+
+knapsack type problems:
+if u have a option to select an item or leave it in an array and it has some maximum value , then it might be similat to knapsack
+initialization maybe different

@@ -63,3 +63,19 @@ int main() {
 //while pushing the queue, only mark the corresponding node in the vis array
 //while removing from the queue, add it to the final ans
 //do not initialize the final vector ans
+
+
+flow of the question:
+push the root into the q initially and mark vis as 1
+then pop the top element and add it into the final ans
+check all neighbours of the popped element , if present in the adj list add them to the q and in vis array mark as 1, also the neighbours shouldnt have been traversed before, that is an imp condition, so if vis[neighbour] is not 1 , only then u add it to the q.
+for each node popped out of the q, iterate over all of its neighbours present in the adj list
+
+
+
+adj list looks like
+0->{1,2}
+1->{3,4,5}
+each node storing its neighbours as a list
+
+its a vector<int> adj[], basically an array called adj[] and each index stores a vector list of neighbours

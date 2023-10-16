@@ -1,0 +1,33 @@
+class Solution {
+public:
+    Node* cloneGraph(Node* node) {
+        if (!node) return NULL;
+        
+        map<Node*, Node*> vis; // Use a hash map to keep track of cloned nodes
+        
+        // Create a copy of the starting node
+        Node* copy = new Node(node->val);
+        vis[node] = copy;
+        
+        // Perform a depth-first traversal to clone the graph
+        cloneDFS(node, copy, vis);
+        
+        return copy;
+    }
+    
+    void cloneDFS(Node* node, Node* copy, map<Node*, Node*>& vis) {
+        for (Node* neighbor : node->neighbors) {
+            if (vis.find(neighbor) == vis.end()) {
+                // If the neighbor hasn't been cloned yet, create a copy
+                Node* neighborCopy = new Node(neighbor->val);
+                vis[neighbor] = neighborCopy;
+                
+                // Recursively clone the neighbor's neighbors
+                cloneDFS(neighbor, neighborCopy, vis);
+            }
+            
+            // Add the cloned neighbor to the copied node's neighbors
+            copy->neighbors.push_back(vis[neighbor]);
+        }
+    }
+};

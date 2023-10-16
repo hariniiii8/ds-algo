@@ -1,0 +1,83 @@
+how to detect a cycle intuition:
+adj list
+1->{2,3}
+2->{1,5}
+3->{1,4,6}
+4->{3}
+5->{2,7}
+6->{3,7}
+7->{5,6}
+
+from 1 , we go to 2 and 3(2 and 3 r same level)
+from 2 we go to 5 and from 3 to 6 and 4
+from 5 we go to 7 and from 6 we go to 7
+
+from 2 different nodes we r reaching the same node,therefore this shows that we have a cycle
+
+now while doing this using bfs , we use a queue and use a visited array 
+here in the queue we carry 2 elements , the cur node and its parent
+this is useful bcoz:
+suppose we r at node 2 , its parent is 1 , its neighbours are 1 and 5
+we shouldnt go back to 1 bcoz that its parent , so we move to 5
+u may think think that thats what we mark in the visited array
+but consider the node 6 having neighbours 3 and 7
+its parent is 3 , so we can only move to 7 and we mark vis[7] as 1
+next consider 5 having neighbours 2 and 7, 2 is 5s parent so u can only move to 7
+if it was normal bfs ,  we cant go to 7 as its already marked.
+but here since 7 is not parent of 5 also , theres only one othere possibility that there exists a loop as two diiferent nodes meet at one node
+sm has already visited 7(6 has)and now 5 also comes there , this shows there is a cycle
+
+the first root comes from parent -1.
+
+multiple componenets can also be given , in such cases run a for loop over all the nodes
+
+class Solution {
+  private: 
+  bool detect(int src, vector<int> adj[], int vis[]) {
+      vis[src] = 1; 
+      // store <source node, parent node>
+      queue<pair<int,int>> q; 
+      q.push({src, -1}); 
+      // traverse until queue is not empty
+      while(!q.empty()) {
+          int node = q.front().first; 
+          int parent = q.front().second; 
+          q.pop(); 
+          
+          // go to all adjacent nodes
+          for(auto adjacentNode: adj[node]) {
+              // if adjacent node is unvisited
+              if(!vis[adjacentNode]) {
+                  vis[adjacentNode] = 1; 
+                  q.push({adjacentNode, node}); 
+              }
+              // if adjacent node is visited and is not it's own parent node
+              else if(parent != adjacentNode) {
+                  // yes it is a cycle
+                  return true; 
+              }
+          }
+      }
+      // there's no cycle
+      return false; 
+  }
+  public:
+    // Function to detect cycle in an undirected graph.
+    bool isCycle(int V, vector<int> adj[]) {
+        // initialise them as unvisited 
+        int vis[V] = {0};
+        for(int i = 0;i<V;i++) {
+            if(!vis[i]) {
+                if(detect(i, adj, vis)) return true; 
+            }
+        }
+        return false; 
+    }
+};
+
+
+
+// else if(parent != adjacentNode) { means we shouldnt consider parent node, but if its some other node and thats marked as 1, then theres a loop.
+//for connected components , suppose 1 2 and 3 are connected and 4 and 5 r connected , then the fn first calls for 1 , in vis all 1 2 and 3 get marked
+next time when the fn calls for 2 , it sees that it has already been marked in the vis , so it skips 2 and similarly skips 3 too
+it directly goes to 4

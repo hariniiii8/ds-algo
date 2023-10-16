@@ -1,0 +1,52 @@
+class Solution {
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+       
+        int n=numCourses;
+        vector<int> adj[n];
+        for(auto it:prerequisites)
+        {
+           int u=it[1];
+           int v=it[0];
+           adj[u].push_back(v);
+        }
+        
+        vector<int> vis(n,0);
+        
+
+        for(int i=0;i<numCourses;i++)
+        {
+            if(vis[i]==0)
+            {
+                if(dfs(i,vis,adj)==true)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+        
+    }
+    bool dfs(int node,vector<int> &vis,vector<int> adj[])
+    {
+       vis[node]=2 ;
+       for(auto it:adj[node])
+       {
+           if(vis[it]==0)
+           {
+               vis[it]=2;
+               if(dfs(it,vis,adj))
+               {
+                   return true;
+               }
+           }
+           else if(vis[it]==2)
+           {
+               return true;
+           }
+       }
+
+       vis[node]=1;
+       return false;
+    }
+};

@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<int> rightSideView(TreeNode* root) {
+        vector<int> ans;
+        TreeNode *curr=root;
+
+        right(ans,curr,0);
+        return ans;
+        
+    }
+    void right(vector<int> &ans,TreeNode *curr,int level)
+    {
+        if(curr==NULL)
+        {
+            return;
+        }
+        if(ans.size()==level)
+        {
+            ans.push_back(curr->val);
+        }
+        right(ans,curr->right,level+1);
+        right(ans,curr->left,level+1);
+
+    }
+};
+
+
+
+we use reverse preorder
+why: first printing root then right

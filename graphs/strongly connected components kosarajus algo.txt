@@ -1,0 +1,85 @@
+public:
+    // Function to find the number of strongly connected components in the graph.
+    int kosaraju(int V, vector<vector<int>>& adj)
+    {
+        vector<int> vis(V, 0);
+        stack<int> s;
+
+        // Step 1: Perform the first DFS to fill the stack.
+        for (int i = 0; i < V; i++)
+        {
+            if (!vis[i])
+            {
+                dfs(i, vis, adj, s);
+            }
+        }
+
+        // Step 2: Reverse the graph.
+        vector<vector<int>> rev = reverse(V, adj);
+
+        // Reset the visited array.
+        for (int i = 0; i < V; i++)
+        {
+            vis[i] = 0;
+        }
+
+        int count = 0;
+
+        // Step 3: Perform the second DFS on the reversed graph.
+        while (!s.empty())
+        {
+            int node = s.top();
+            s.pop();
+
+            if (!vis[node])
+            {
+                count++;
+                dfs2(node, vis, rev);
+            }
+        }
+
+        return count;
+    }
+
+private:
+    // Step 1: First DFS
+    void dfs(int node, vector<int>& vis, vector<vector<int>>& adj, stack<int>& s)
+    {
+        vis[node] = 1;
+        for (auto it : adj[node])
+        {
+            if (!vis[it])
+            {
+                dfs(it, vis, adj, s);
+            }
+        }
+        s.push(node);
+    }
+
+    // Step 3: Second DFS
+    void dfs2(int node, vector<int>& vis, vector<vector<int>>& adj)
+    {
+        vis[node] = 1;
+        for (auto it : adj[node])
+        {
+            if (!vis[it])
+            {
+                dfs2(it, vis, adj);
+            }
+        }
+    }
+
+    // Step 2: Reverse the graph
+    vector<vector<int>> reverse(int V, vector<vector<int>>& adj)
+    {
+        vector<vector<int>> rev(V);
+        for (int i = 0; i < V; i++)
+        {
+            for (auto it : adj[i])
+            {
+                rev[it].push_back(i);
+            }
+        }
+        return rev;
+    }
+};

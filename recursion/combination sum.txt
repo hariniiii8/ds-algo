@@ -1,0 +1,35 @@
+class Solution
+{
+public:
+vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+    vector<vector<int>> ans;
+    vector<int> ds;
+    combinationSum(0, target, candidates, ans, ds);
+    return ans;
+}
+void combinationSum(int ind, int target, vector<int>& candidates, vector<vector<int>>& ans, vector<int>& ds) {
+    if (ind == candidates.size()) {
+        if (target == 0) {
+            ans.push_back(ds);
+        }
+        return;
+    }
+    vector<int> ds1=ds;
+      combinationSum(ind + 1, target, candidates, ans, ds1);
+      if(candidates[ind]<=target)
+   {
+       vector<int> ds2=ds;
+       ds2.push_back(candidates[ind]);
+         
+        combinationSum(ind, target - candidates[ind], candidates, ans, ds2);
+        
+   }  
+}
+};
+
+
+
+. The reason pop_back isn't needed in this code is because of how the recursion works.
+Since you're creating separate copies of op for each branch (with op1 and op2), there's no need to use pop_back. When the recursive call returns, it simply discards the branch-specific op1 or op2, and the original op remains unaffected.
+
+In this code, the subsets are generated through the recursive tree structure, and because each branch has its own separate copy of op, there's no need to backtrack or explicitly remove elements using pop_back. The code naturally explores all possibilities without modifying the op vector itself. This is a valid and efficient approach to solving the subset generation problem using recursion.

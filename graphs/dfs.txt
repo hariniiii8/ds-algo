@@ -26,3 +26,10 @@ class Solution {
 };
 
 // pass the addresses in the functions
+//while writin the code, the vis[node]=1 should be marked in the recurseive fn and not in the parent fn, bcoz when recursion runs each time, it gets marked for different nodes
+//dont forget to add the node to the final ans
+//start the traversal with the root 0 node
+//call a recursive fn which runs on all neighbours of root 
+//root calls  neighbour1, the neighbor1 calls its neighbours and so on
+//then root calls neighbour 2 and it calls its neighbours and so on
+//this way all the nodes r traversed

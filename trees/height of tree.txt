@@ -1,0 +1,59 @@
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        TreeNode* cur=root;
+        if(cur==NULL)
+        {
+            return 0;
+        }
+       
+            int left=maxDepth(cur->left);
+        
+            int right=maxDepth(cur->right);
+        
+        return 1+max(left,right);
+        
+    }
+};
+
+
+
+
+lass Solution {
+public:
+    int maxDepth(TreeNode* root) {
+          queue<TreeNode*> q;
+       int count=0;
+       TreeNode *cur=root;
+        if(cur==NULL)
+        {
+            return count;
+        }
+        q.push(cur);
+        while(!q.empty())
+        {
+            int size=q.size();
+            for(int i=0;i<size;i++)
+            {
+                
+                TreeNode* it=q.front();
+            q.pop();
+            if(it->left!=NULL)
+            {
+                q.push(it->left);
+            }
+              if(it->right!=NULL)
+            {
+                q.push(it->right);
+            }
+            
+
+            }
+            count++;
+            
+    
+        }
+        return count;
+        
+    }
+};

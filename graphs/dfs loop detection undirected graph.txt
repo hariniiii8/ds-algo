@@ -1,0 +1,41 @@
+dfs loop detection intuition:
+conn-> 1-2-5-7-6-3-1 this is the loop
+we start at 1 and through dfs if we come back to 1 , then there exists a loop
+maintain parent and the node
+
+eg parent of 3 is 6 so vis[6] will be 1 so no problem
+but another neighbout of 3 is 1 , and even vis[1]=1 but 1 is not the parent of 1, therefore there exists a loop
+
+class Solution {
+  private: 
+    bool dfs(int node, int parent, int vis[], vector<int> adj[]) {
+        vis[node] = 1; 
+        // visit adjacent nodes
+        for(auto adjacentNode: adj[node]) {
+            // unvisited adjacent node
+            if(!vis[adjacentNode]) {
+                if(dfs(adjacentNode, node, vis, adj) == true) 
+                    return true; 
+            }
+            // visited node but not a parent node
+            else if(adjacentNode != parent) return true; 
+        }
+        return false; 
+    }
+  public:
+    // Function to detect cycle in an undirected graph.
+    bool isCycle(int V, vector<int> adj[]) {
+       int vis[V] = {0}; 
+       // for graph with connected components 
+       for(int i = 0;i<V;i++) {
+           if(!vis[i]) {
+               if(dfs(i, -1, vis, adj) == true) return true; 
+           }
+       }
+       return false; 
+    }
+};
+
+
+  if(dfs(adjacentNode, node, vis, adj) == true)  means if the lower dfs calls return true , then it means there is a cycle somewhere below bcoz of which ur gettin a true
+

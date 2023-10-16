@@ -1,0 +1,34 @@
+class Solution {
+public:
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+         vector<vector<int>> result;
+        vector<int> op;
+        set<vector<int>> res;
+        mine(nums, 0, res, op);
+        for(auto it=res.begin();it!=res.end();it++)
+        {
+            result.push_back(*it);
+        }
+        return result;
+        
+    }
+      void mine(vector<int>& nums, int index, set<vector<int>>& res, vector<int>& op) {
+        if (index == nums.size()) {
+            sort(op.begin(),op.end());
+            res.insert(op);
+            return;
+        }
+         vector<int> op1=op;
+
+        
+        mine(nums, index + 1, res, op1);
+
+        
+         vector<int> op2=op;
+        op2.push_back(nums[index]);
+        mine(nums, index + 1, res, op2);
+
+        
+    }
+
+};
