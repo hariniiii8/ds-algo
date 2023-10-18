@@ -1,0 +1,41 @@
+class MyQueue {
+private:
+    std::stack<int> input;
+    std::stack<int> output;
+
+public:
+    MyQueue() {
+        // Constructor, no need to initialize anything here
+    }
+
+    void push(int x) {
+        input.push(x);
+    }
+
+    int pop() {
+        if (output.empty()) {
+            while (!input.empty()) {
+                output.push(input.top());
+                input.pop();
+            }
+        }
+        int x = output.top();
+        output.pop();
+        return x;
+    }
+
+    int peek() {
+        if (output.empty()) {
+            while (!input.empty()) {
+                output.push(input.top());
+                input.pop();
+            }
+        }
+        int x = output.top();
+        return x;
+    }
+
+    bool empty() {
+        return input.empty() && output.empty();
+    }
+};

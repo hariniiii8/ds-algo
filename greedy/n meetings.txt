@@ -29,7 +29,7 @@ class Solution
     int maxMeetings(int start[], int end[], int n)
     {
         // Your code here
-        struct meeting meet[n];
+        struct meeting meet[n]; //an array , each array stores a structure
         for(int i=0;i<n;i++)
         {
             meet[i].start=start[i];
