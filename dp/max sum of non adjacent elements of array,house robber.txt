@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int n=nums.size();
+        vector<int> dp(nums.size()+1,-1);
+        int ans=robber(n-1,dp,nums);
+        return ans;
+    }
+    int robber(int ind,vector<int> &dp,vector<int> &nums)
+    {
+        if(ind==0)
+        {
+            return nums[ind];
+        }
+        if(ind<0)
+        {
+            return 0;
+        }
+        if(dp[ind]!=-1)
+        {
+            return dp[ind];
+        }
+        int pick=nums[ind]+robber(ind-2,dp,nums);
+        int notpick=0+robber(ind-1,dp,nums);
+        return dp[ind]= max(pick,notpick);
+    }
+};
