@@ -1,0 +1,13 @@
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+         if (!root) return true;
+  return Sym(root -> left, root -> right);  
+    }
+    bool Sym(TreeNode * p, TreeNode * q) {
+  if (p == NULL || q == NULL)
+    return p == q;
+  return (p -> val == q -> val) && Sym(p -> left, q->
+  right) && Sym(p -> right, q-> left);
+}
+};

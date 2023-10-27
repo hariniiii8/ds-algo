@@ -74,7 +74,6 @@ using 1 array:
         {
             if(vis[it]==0)
             {
-                vis[it]=2;
                  if(dfsCheck(it,vis,adj))
           {
               return true;
