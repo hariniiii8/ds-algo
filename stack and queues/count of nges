@@ -22,7 +22,7 @@ vector<int> countGreater(vector<int>&arr, vector<int>&query) {
 
 ans.push_back(count);
 
-count=0;
+
 
     }
 
@@ -64,7 +64,7 @@ st.push(arr[query[i]]);
 
 ans.push_back(count);
 
-count=0;
+
 
     }
 
